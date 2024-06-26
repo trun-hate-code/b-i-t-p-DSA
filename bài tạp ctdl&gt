@@ -1,0 +1,291 @@
+#include <iostream>
+#include <string>
+#include <cstring>
+
+
+using namespace std;
+#define MAX 50
+struct phongBan
+{
+	string maphong;
+	string tenphong;
+};
+
+void Bai1(phongBan &a) {
+	cout << "Nhap ma phong: ";
+	cin.ignore();
+	getline(cin, a.maphong);
+	cout << "Ten phong: ";
+	getline(cin, a.tenphong);
+}
+
+
+void xuatPhong(phongBan a) {
+	cout << "Ma phong: " << a.maphong << endl;
+	cout << "Ten phong: " << a.tenphong << endl;
+}
+
+struct phanSo
+{
+	int tuso;
+	int mauso;
+};
+
+void nhapPhanSo(phanSo &a) {
+	cout << "Nhap tu so: "; 
+	cin >> a.tuso;
+	cout << "Nhap mau so: ";
+	cin >> a.mauso;
+}
+
+bool Bai2(phanSo &a, phanSo &b) {
+	cout << "Nhap gia tri phan so thu 1: " << endl;
+	nhapPhanSo(a);
+	cout << "Nhap gia tri phan so thu 2: " << endl;
+	nhapPhanSo(b);
+	if (a.mauso == 0 || b.mauso == 0) {
+		cout << "Mau so 1 trong 2 phan so khong hop le" << endl;
+		return false;
+	}
+	cout << "Tong hai phan so: " << endl;
+	phanSo c;
+	c.tuso = (a.tuso * b.mauso) + (a.mauso * b.tuso);
+	c.mauso = a.mauso * b.mauso;
+	cout << "Ket qua: " << c.tuso << "/" << c.mauso << endl;
+	cout << "Hieu hai phan so a - b:  " << endl;
+	phanSo d;
+	d.tuso = (a.tuso * b.mauso) - (a.mauso * b.tuso);
+	d.mauso = a.mauso * b.mauso;
+	cout << "Ket qua: " << d.tuso << "/" << d.mauso << endl;
+	cout << "Tich hai phan so: " << endl;
+	phanSo e;
+	e.tuso = a.tuso * b.tuso;
+	e.mauso = a.mauso * b.mauso;
+	cout << "Ket qua: " << e.tuso << "/" << e.mauso << endl;
+	cout << "Thuong hai phan so: " << endl;
+	phanSo f;
+	f.tuso = a.tuso * b.mauso;
+	f.mauso = a.mauso * b.tuso;
+	cout << "Ket qua: " << f.tuso << "/" << f.mauso << endl;
+	return true;
+}
+
+struct nhanVien
+{
+	string maNhanVien;
+	string name;
+	int namVao;
+	int namSinh;
+	int tuoi;
+	int thamnien;
+};
+
+void nhapThongTinNhanVien(nhanVien &a) {
+	cout << "Ma nhan vien: ";
+	cin.ignore();
+	getline(cin, a.maNhanVien);
+	cout << "Ho ten nhan vien: ";
+	getline(cin, a.name);
+	cout << "Nam vao: ";
+	cin >> a.namVao;
+	cout << "Nam sinh: ";
+	cin >> a.namSinh;
+}
+
+void xuatThongTin(nhanVien a) {
+	cout << "Ma nhan vien: " << a.maNhanVien << endl;
+	cout << "Ho ten: " << a.name << endl;
+	cout << "Nam vao: " << a.namVao << endl;
+	cout << "Nam sinh: " << a.namSinh << endl;
+}
+
+void tuoiVaThamNien(nhanVien a) {
+	a.tuoi = 2024 - a.namSinh;
+	a.thamnien = 2024 - a.namVao;
+	cout << "Tuoi: " << a.tuoi << endl;
+	cout << "Tham nien lam viec: " << a.thamnien << " " << "nam" << endl;
+}
+
+bool Bai3(nhanVien &a) {
+	nhapThongTinNhanVien(a);
+	if (a.namSinh <= 0 || a.namVao <= 0) {
+		cout << "Nam sinh hoac nam vao khong hop le: ";
+		return false;
+	}
+	xuatThongTin(a);
+	tuoiVaThamNien(a);
+	return true;
+}
+
+struct SinhVien {
+	string mssv;
+	string name;
+	string diachi;
+	int namsinh;
+	double diemtoan;
+	double diemvan;
+	double diemav;
+	double diemtb;
+};
+
+void ThongTinsv(SinhVien &a) {
+	cout << "Ma so sinh vien: ";
+	cin.ignore();
+	getline(cin, a.mssv);
+	cout << "Ho ten: ";
+	getline(cin, a.name);
+	cout << "Dia chi: ";
+	getline(cin, a.diachi);
+	cout << "Nam sinh: ";
+	cin >> a.namsinh;
+	cout << "Diem toan: ";
+	cin >> a.diemtoan;
+	cout << "Diem van: ";
+	cin >> a.diemvan;
+	cout << "Diem tieng anh: ";
+	cin >> a.diemav;
+}
+
+bool Xuatsv(SinhVien a) {
+	if (a.diemav < 0 || a.diemtoan < 0 || a.diemav < 0 || a.name == " " || a.diachi == " " || a.mssv == " ") {
+		cout << "Du lieu chua hop le";
+		return false;
+	}
+	cout << "Ma so sinh vien: " << a.mssv << endl;
+	cout << "Ho ten: " << a.name << endl;
+	cout << "Dia chi: " << a.diachi << endl;
+	cout << "Nam sinh: " << a.namsinh << endl;
+	cout << "Diem toan, van, ngoai ngu: " << a.diemtoan << " " << a.diemvan << " " << a.diemav << endl;
+	a.diemtb = ((a.diemtoan + a.diemvan) * 2 + a.diemav) / 5;
+	cout << "Diem trung binh: " << a.diemtb << endl;
+	cout << "Loai: ";
+	if (a.diemtb >= 6.5 && a.diemtb < 8) {
+		cout << "Kha" << endl;
+	}
+	else if (a.diemtb >= 8) {
+		cout << "Gioi" << endl;
+	}
+	else if (a.diemtb >= 5 && a.diemtb < 6.5) {
+		cout << "TB" << endl;
+	}
+	else if (a.diemtb < 5) {
+		cout << "duoi TB" << endl;
+	}
+	return true;
+}
+
+void Bai4(SinhVien a[]) {
+	cout << "So luong sinh vien: ";
+	int n; cin >> n;
+	for (int i = 1; i <= n; i++) {
+		cout << "STT Sinh vien: " << i << endl;
+		ThongTinsv(a[i]);
+	}
+	cout << "Nhap stt sinh vien can kiem tra: ";
+	int stt; cin >> stt;
+	if (stt < n || stt > n) {
+		cout << "Du lieu khong hop le" << endl;
+	}
+	else Xuatsv(a[stt]);
+}
+
+struct NTN
+{
+	int ngay;
+	int thang;
+	int nam;
+};
+
+struct Sach
+{
+	char ten[50];
+	char tenTacGia[50];
+	NTN ntn;
+
+};
+
+void NhapSach(Sach &a) {
+	cout << "Ten sach: ";
+	cin.ignore();
+	cin.getline(a.ten, 50);
+	cout << "Tac gia: ";
+	cin.getline(a.tenTacGia, 50);
+	cout << "Ngay xuat ban: ";
+	cin >> a.ntn.ngay;
+	cout << "Thang xuat ban: ";
+	cin >> a.ntn.thang;
+	cout << "Nam xuat ban: ";
+	cin >> a.ntn.nam;
+}
+
+void XuatSach(Sach a) {
+	cout << "Ten sach: " << a.ten << endl;
+	cout << "Tac gia: " << a.tenTacGia << endl;
+	cout << "Ngay xuat ban: " << a.ntn.ngay << "/" << a.ntn.thang << "/" << a.ntn.nam << endl;
+}
+
+void Bai5(Sach a[]) {
+	int n;
+	cout << "So luong sach: ";
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cout << "Sach thu" << i + 1 << ":" << endl;
+		NhapSach(a[i]);
+	}
+	cout << "Sach cua Tran Dung: " << endl;
+	for (int j = 0; j < n; j++) {
+		if (a[j].tenTacGia == "Tran Dung") {
+			cout << a[j].ten << " ";
+		}
+	}
+}
+
+int main() {
+	cout << "Nhap bai tap can lam: ";
+	int bai; cin >> bai;
+	phongBan a;
+	phanSo c, d;
+	nhanVien e;
+	SinhVien f[MAX];
+	Sach k[MAX];
+	do
+	{
+		switch (bai)
+		{
+		case(1):
+			cout << "Bai 1: ";
+			Bai1(a);
+			xuatPhong(a);
+			cout << "Bai tiep theo: ";
+			cin >> bai;
+			break;
+		case(2):
+			Bai2(c, d);
+			cout << "Bai tiep theo: ";
+			cin >> bai;
+			break;
+		case(3):
+			Bai3(e);
+			cout << "bai tiep theo: ";
+			cin >> bai;
+			break;
+		case(4):
+			Bai4(f);
+			cout << "Bai tiep theo: ";
+			cin >> bai;
+			break;
+		case(5):
+			Bai5(k);
+			cout << "Bai tiep theo: ";
+			cin >> bai;
+			break;
+		default:
+			cout << "Du lieu khong hop le, moi nhap lai: ";
+			cin >> bai;
+			break;
+		}
+
+	} while (bai != 0);
+	system("pause");
+	return 0;
+}
