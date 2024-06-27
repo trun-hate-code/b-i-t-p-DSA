@@ -1,0 +1,80 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstring>
+
+using namespace std;
+
+void Bai1(fstream &file) {
+	int a, b;
+	cout << "Nhap vao so nguyen a: ";
+	cin >> a;
+	cout << "Nhap vao so nguyen b: ";
+	cin >> b;
+	int c = a + b;
+	file << c;
+}
+
+void Bai2() {
+	cout << "Bai 2: " << endl;
+	fstream file;
+	file.open("Text.txt");
+	int m;
+	file >> m;
+	cout << m << endl;
+}
+
+void Bai3() {
+	cout << "Bai 3: " << endl;
+	fstream file;
+	file.open("BT3.txt", ios::in);
+	int a, b, c;
+	file >> a;
+	file >> b;
+	file >> c;
+	int d = (a + b + c) / 3;
+	cout << d << endl;
+}
+
+void Bai4() {
+	fstream file;
+	file.open("BT4.txt", ios::out);
+	char *a = new char[50];
+	cout << "Nhap chuoi: ";
+	cin.ignore();
+	cin.getline(a, 50);
+	for (int j = 0; j < strlen(a); j++) {
+		if (a[j] >= 97 && a[j] <= 122) {
+			a[j] -= 32;
+		}
+	}
+	for (int x = 0; x < strlen(a); x++) {
+		file << a[x];
+	}
+	delete[] a;
+}
+
+
+void Bai5() {
+	fstream file;
+	file.open("BT4.txt", ios::in);
+	char a[20];
+	file.getline(a, 50);
+	int dem = 0;
+	cout << "So ki tu trong mang: ";
+	for (int i = 0; i < strlen(a); i++) {
+		dem++;
+	}
+	cout << dem << endl;
+}
+int main() {
+	fstream fs;
+	fs.open("Text.txt");
+	Bai1(fs);
+	Bai2();
+	Bai3();
+	Bai4();
+	Bai5();
+	system("pause");
+	return 0;
+}
