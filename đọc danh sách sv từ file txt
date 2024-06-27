@@ -1,0 +1,60 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+
+using namespace std;
+#define SO_MON 3
+
+struct SinhVien
+{
+	string mssv;
+	string hoTen;
+	char queQuan[50];
+	double diem[SO_MON];
+};
+
+struct DsSv
+{
+	SinhVien *a;
+	int n;
+};
+
+void Docds(DsSv &ds) {
+	ifstream f;
+	f.open("text.txt", ios::in);
+	f >> ds.n;
+	f.ignore(1);
+	ds.a = new SinhVien[ds.n];
+	for (int i = 0; i < ds.n; i++) {
+		getline(f, ds.a[i].mssv,'#');
+		getline(f, ds.a[i].hoTen, '#');
+		f.getline(ds.a[i].queQuan,20,'#');
+		for (int j = 0; j < SO_MON; j++) {
+			f >> ds.a[i].diem[j];
+			f.ignore(1);
+		}
+
+
+	}
+}
+
+void xuatDs(const DsSv &ds) {
+	for (int i = 0; i < ds.n; i++) {
+		cout << "Sinh vien thu " << i + 1 << ":" << endl;
+		cout << "MSSV: " << ds.a[i].mssv <<  endl;
+		cout << "Ho ten: " << ds.a[i].hoTen << endl;
+		for (int j = 0; j < SO_MON; j++) {
+			cout << "Diem mon thu" << j + 1 << ": " << ds.a[i].diem[j] << endl;
+		}
+	}
+}
+
+int main() {
+	DsSv s;
+	Docds(s);
+	xuatDs(s);
+	delete[] s.a;
+	system("pause");
+	return 0;
+}
