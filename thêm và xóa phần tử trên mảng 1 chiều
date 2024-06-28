@@ -1,0 +1,53 @@
+#include <iostream>
+
+
+using namespace std;
+
+#define MAX 50
+
+struct arch {
+	int *a;
+	int n;
+};
+
+void themPhanTu(arch &a, int viTri, int x) {
+	a.n++;
+	for (int i = a.n; i >= viTri + 1; i--) {
+		a.a[i] = a.a[i - 1];
+	}
+	a.a[viTri] = x;
+}
+
+void xoaPhanTu(arch &a, int viTri) {
+	for (int i = viTri; i < a.n - 1; i++) {
+		a.a[i] = a.a[i + 1];
+	}
+	a.n--;
+}
+
+void xuatMang(const arch a) {
+	for (int i = 0; i < a.n; i++) {
+		cout << a.a[i] << " ";
+	}
+}
+
+int main() {
+	arch a;
+	a.a = new int[MAX];
+	cout << "So luong phan tu: ";
+	cin >> a.n;
+	for (int i = 0; i < a.n; i++) {
+		cin >> a.a[i];
+	}
+	cout << "Nhap vi tri can them phan tu: ";
+	int loca; cin >> loca;
+	cout << "Gia tri can them: ";
+	int x; cin >> x;
+	themPhanTu(a, loca, x);
+	cout << "Nhap vi tri can xoa: ";
+	int vitri; cin >> vitri;
+	xoaPhanTu(a, vitri);
+	xuatMang(a);
+	system("pause");
+	return 0;
+}
