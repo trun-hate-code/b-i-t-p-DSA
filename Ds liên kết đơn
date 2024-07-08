@@ -1,0 +1,46 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+	int value;
+	Node *next; // *link
+};
+
+void init(Node *&head) {
+	head = NULL;
+}
+
+Node* createdNode(int x) {
+	Node *p = new Node;
+	p->value = x;
+	p->next = NULL;
+	return p;
+}
+
+void addFirst(Node *&head, int x) {
+	Node *p = createdNode(x);
+	p->next = head;
+	head = p;
+}
+
+void output(Node *head) {
+	Node *p = head;
+	while (p != NULL) {
+		cout << p->value << " ";
+		p = p->next;
+	}
+}
+
+int main() {
+	Node *head;
+	init(head);
+	addFirst(head, 10);
+	addFirst(head, 15);
+	addFirst(head, 9);
+	output(head);
+	cout << endl;
+	system("pause");
+	return 0;
+}
