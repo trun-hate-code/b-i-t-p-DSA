@@ -1,0 +1,141 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+#define MAX 100
+
+struct LinkedList {
+	int *a;
+	int n;
+};
+
+void nhapDanhSach(LinkedList &ds) {
+	ds.a = new int[MAX];
+	cout << "Nhap so luong phan tu danh sach: ";
+	cin >> ds.n;
+	if (ds.n > MAX || ds.n < 0) {
+		cout << "So luong phan tu khong hop le, moi nhap lai: ";
+		cin >> ds.n;
+	}
+	else {
+		for (int i = 0; i < ds.n; i++) {
+			cin >> ds.a[i];
+		}
+	}
+
+}
+
+void xuatDanhSach(const LinkedList ls) {
+	cout << "Xuat danh sach: ";
+	for (int i = 0; i < ls.n; i++) {
+		cout << ls.a[i] << " ";
+	}
+	cout << endl;
+}
+
+bool timPhanTu(LinkedList ls) {
+	cout << "Tim kiem phan tu trong danh sach: " << endl;
+	int x;
+	cout << "Nhap vao phan tu can tim: ";
+	cin >> x;
+	for (int i = 0; i < ls.n; i++) {
+		if (ls.a[i] == x) {
+			cout << "Tim thay " << endl;
+			return true;
+		}
+	}
+	cout << "Khong tim thay: " << endl;
+}
+
+void addLast(LinkedList &ls) {
+	cout << "Them phan tu vao cuoi danh sach: " << endl;
+	int x;
+	cout << "Nhap gia tri can them: ";
+	cin >> x;
+	ls.n++;
+	for (int i = 0; i < ls.n; i++) {
+		if (i == ls.n - 1) {
+			ls.a[i] = x;
+		}
+	}
+	cout << "Mang sau khi them: " << endl;
+}
+
+void deleteLast(LinkedList &ls) {
+	cout << "Xoa phan tu cuoi cung: " << endl;
+	ls.n--;
+	cout << "Mang sau khi xoa: ";
+	for (int i = 0; i < ls.n; i++) {
+		cout << ls.a[i] << " ";
+	}
+}
+
+void xoaPhanTu(LinkedList &ls) {
+	int loca;
+	cout << "Nhap vao vi tri can xoa: ";
+	cin >> loca;
+	for (int i = loca; i < ls.n; i++) {
+		ls.a[i] = ls.a[i + 1];
+	}
+	ls.n--;
+	cout << "Mang sau khi xoa: " << endl;
+	for (int j = 0; j < ls.n; j++) {
+		cout << ls.a[j] << " ";
+	}
+}
+
+void addAfter(LinkedList &ls) {
+	cout << "Xoa vi tri can nhap" << endl;
+	cout << "Them sau: " << endl;
+	int x;
+	cout << "Nhap gia tri can them: ";
+	cin >> x;
+	int loca;
+	cout << "Nhap vi tri can them: ";
+	cin >> loca;
+	ls.n++;
+	for (int i = ls.n; i >= loca + 1; i--) {
+		ls.a[i] = ls.a[i - 1];
+	}
+	ls.a[loca] = x;
+	xuatDanhSach(ls);
+}
+
+void deleteFind(LinkedList &ls) {
+	int x;
+	cout << "Nhap phan tu can xoa: ";
+	cin >> x;
+	for (int i = 0; i < ls.n; i++) {
+		if (ls.a[i] == x) {
+			for (int j = i; j < ls.n; j++) {
+				ls.a[j] = ls.a[j + 1];
+			}
+		}
+	}
+	ls.n--;
+	cout << "Mang sau khi xoa: " << endl;
+	for (int x = 0; x < ls.n; x++) {
+		cout << ls.a[x] << " ";
+	}
+}
+
+void Bai1(LinkedList &ls) {
+	cout << "Bai 1: " << endl;
+	nhapDanhSach(ls);
+	xuatDanhSach(ls);
+	timPhanTu(ls);
+	addLast(ls);
+	xuatDanhSach(ls);
+	deleteLast(ls);
+	xoaPhanTu(ls);
+	addAfter(ls);
+	deleteFind(ls);
+}
+
+ int main() {
+	 LinkedList ls;
+	 Bai1(ls);
+	system("pause");
+	return 0;
+}
