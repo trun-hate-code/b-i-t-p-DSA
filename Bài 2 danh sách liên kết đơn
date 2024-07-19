@@ -1,0 +1,202 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct Node
+{
+	int value;
+	Node *next;
+};
+
+void init(Node *&head) {
+	head = NULL;
+}
+
+Node* createdNode(int x) {
+	Node *p = new Node;
+	p->value = x;
+	p->next = NULL;
+	return p;
+}
+
+void addFirstNode(Node *&head, int x) {
+	Node *p = createdNode(x);
+	p->next = head;
+	head = p;
+}
+
+void output(Node *head) {
+	Node *p = head;
+	while (p != NULL) {
+		cout << p->value << " ";
+		p = p->next;
+	}
+	cout << endl;
+}
+
+void insertList(Node *&head) {
+	int n;
+	cout << "Nhap so luong phan tu: ";
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		int x;
+		cout << "Nhap vao phan tu thu " << i << ":";
+		cin >> x;
+		addFirstNode(head, x);
+	}
+}
+
+bool findNode(Node *head) {
+	int x;
+	cout << "Nhap gia tri can tim: ";
+	cin >> x;
+	Node *p = head;
+	while (p != NULL) {
+		if (p->value == x) {
+			cout << "Tim thay" << endl;
+			return true;
+		}
+		else {
+			p = p->next;
+		}
+	}
+	cout << "Khong tim thay" << endl;
+	return false;
+}
+
+void addFirst(Node *&head) {
+	int x;
+	cout << "Nhap vao phan tu can them: ";
+	cin >> x;
+	addFirstNode(head, x);
+	cout << "Danh sach sau khi them: ";
+	output(head);
+}
+
+void deleteFirst(Node *&head) {
+	Node *p = head;
+	head = p->next;
+	p->next = NULL;
+	delete(p);
+	cout << "Danh sach sau khi xoa phan tu dau tien: ";
+	output(head);
+}
+
+void addLast(Node *&head) {
+	int x;
+	cout << "Nhap phan tu can them: ";
+	cin >> x;
+	Node *q = createdNode(x);
+	Node *p = head;
+	while (p->next != NULL) {
+		p = p->next;
+	}
+	if (p->next == NULL) {
+		p->next = q;
+	}
+	cout << "danh sach sau khi them phan tu vao cuoi: ";
+	output(head);
+}
+
+void deleteLast(Node *&head) {
+	Node *p = head;
+	Node *q = NULL;
+	while (p->next != NULL) {
+		q = p;
+		p = p->next;
+	}
+	if (p->next == NULL) {
+		q->next = NULL;
+		delete(p);
+	}
+	cout << "Mang sau khi xoa phan tu cuoi: ";
+	output(head);
+}
+
+void deleteFind(Node *&head) {
+	int x;
+	cout << "Nhap vao phan tu can xoa: ";
+	cin >> x;
+	Node *p = head;
+	Node *q = NULL;
+	if (head == NULL) {
+		deleteFirst(head);
+	}
+	else {
+		while (p->next != NULL) {
+			if (p->value != x) {
+				q = p;
+				p = p->next;
+			}
+		}
+		q->next = p->next;
+		p->next = NULL;
+		delete(p);
+	}
+	cout << "Mang sau khi xoa phan tu " << x << ":";
+	output(head);
+}
+
+int main() {
+	Node *ls;
+	init(ls);
+	cout << "Bai 2: " << endl;
+	cout << "Khoi tao danh sach: " << endl;
+	insertList(ls);
+	cout << "Danh sach sau khi nhap: ";
+	output(ls);
+	cout << "<-----------MENU----------->" << endl;
+	cout << "1. Tim kiem mot phan tu trong danh sach" << endl;
+	cout << "2. Them mot phan tu vao dau danh sach" << endl;
+	cout << "3. Xoa phan tu dau danh sach" << endl;
+	cout << "4. Them mot phan tu vao cuoi danh sach" << endl;
+	cout << "5. Xoa phan tu cuoi danh sach" << endl;
+	cout << "6. Tim mot phan tu trong danh sach, tim thay se xoa phan tu" << endl;
+	int require;
+	cout << "Nhap vao chuc nang can lam: ";
+	cin >> require;
+	do
+	{
+		switch (require)
+		{
+		case(1):
+			findNode(ls);
+			cout << "chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(2):
+			addFirst(ls);
+			cout << "Nhap vao chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(3):
+			deleteFirst(ls);
+			cout << "Nhap vao chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(4):
+			addLast(ls);
+			cout << "Chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(5):
+			deleteLast(ls);
+			cout << "Chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(6):
+			deleteFind(ls);
+			cout << "Chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		default:
+			cout << "Du lieu khong hop le moi nhap lai: ";
+			cin >> require;
+			break;
+		}
+	} while (require != 0);
+
+	system("pause");
+	return 0;
+}
