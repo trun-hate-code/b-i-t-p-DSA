@@ -1,0 +1,138 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct film
+{
+	string name;
+	string theloai;
+	string daodien;
+	int namsx;
+};
+
+struct movie {
+	film *phim;
+	int n;
+};
+
+void insert(film &phim) {
+	cout << "Nhap ten phim: ";
+	cin.ignore();
+	getline(cin, phim.name);
+	cout << "Nhap the loai phim: ";
+	getline(cin, phim.theloai);
+	cout << "Nhap ten dao dien: ";
+	getline(cin, phim.daodien);
+	cout << "Nhap nam san xuat: ";
+	cin >> phim.namsx;
+}
+
+void insertList(movie &ls) {
+	cout << "Nhap so luong phim: ";
+	cin >> ls.n;
+	ls.phim = new film[ls.n];
+	for (int i = 0; i < ls.n; i++) {
+		cout << "Bo phim thu " << i << ":" << endl;
+		insert(ls.phim[i]);
+	}
+}
+
+void output(const film phim) {
+	cout << "Ten phim: " << phim.name << endl;
+	cout << "The loai: " << phim.theloai << endl;
+	cout << "Dao dien: " << phim.daodien << endl;
+	cout << "Nam san xuat: " << phim.namsx << endl;
+	cout << endl;
+}
+
+void outputList(const movie phim) {
+	for (int i = 0; i < phim.n; i++) {
+		cout << "Phim thu " << i << ":" << endl;
+		output(phim.phim[i]);
+	}
+}
+
+bool findFilm(movie ls) {
+	cin.ignore();
+	string director;
+	cout << "Nhap ten dao dien: ";
+	getline(cin, director);
+	for (int i = 0; i < ls.n; i++) {
+		if (ls.phim[i].daodien == director) {
+			output(ls.phim[i]);
+			return true;
+		}
+	}
+	cout << "Khong tim thay" << endl;
+}
+
+void arrange(movie &ls) {
+	// selection sort
+	for (int k = 0; k < ls.n - 1; k++) {
+		int min = k;
+		for (int i = k + 1; i < ls.n; i++) {
+			if (ls.phim[i].namsx < ls.phim[min].namsx) {
+				min = i;
+			}
+			swap(ls.phim[min], ls.phim[k]);
+		}
+	}
+	cout << "Danh sach sau khi sap xep: ";
+	outputList(ls);
+}
+
+int main() {
+	movie ls;
+	int require;
+	cout << "<----------------MENU-------------->" << endl;
+	cout << "1. Nhap thong tin mot bo phim" << endl;
+	cout << "2. Nhap thong tin nhieu bo phm" << endl;
+	cout << "3. Xuat thong tin cho bo phim vua nhap" << endl;
+	cout << "4. Xuat thong tin cac phim vua nhap" << endl;
+	cout << "5. Tim phim thong qua ten dao dien" << endl;
+	cout << "6. Sap xep phim theo nam san xuat tang dan" << endl;
+	cout << "nhap vao chuc nang can lam: ";
+	cin >> require;
+	film a;
+	do
+	{
+		switch (require)
+		{
+		case(1):
+			insert(a);
+			cout << "Chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(2):
+			insertList(ls);
+			cout << "Chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(3):
+			output(a);
+			cout << "Chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(4):
+			outputList(ls);
+			cout << "Chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(5):
+			findFilm(ls);
+			cout << "Chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		case(6):
+			arrange(ls);
+			cout << "Chuc nang tiep theo: ";
+			cin >> require;
+			break;
+		default:
+			break;
+		}
+	} while (require != 0);
+	system("pause");
+	return 0;
+}
